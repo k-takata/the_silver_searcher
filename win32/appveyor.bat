@@ -20,7 +20,7 @@ exit 1
 @echo on
 PATH C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%
 set CHERE_INVOKING=yes
-bash -lc "if [ \"x$(checkupdates)\" != x ]; then exit 1; fi"
+bash -lc 'if [ "x$(checkupdates)" != x ]; then exit 1; fi'
 if ERRORLEVEL 1 (
 	@rem Update found
 	@rem Remove unused toolchain to reduce the time for updating
