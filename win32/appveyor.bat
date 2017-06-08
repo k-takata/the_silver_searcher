@@ -20,8 +20,13 @@ exit 1
 @echo on
 PATH C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%
 set CHERE_INVOKING=yes
-bash -lc "checkupdate"
+bash -lc "checkupdates"
 bash -lc "pacman -Qeq"
+if "%MSYSTEM%"=="MINGW64" (
+	bash -lc "pacman --noconfirm -Rs mingw-w64-i686-toolchain"
+) else if "%MSYSTEM%"=="MINGW32" (
+	bash -lc "pacman --noconfirm -Rs mingw-w64-x86_64-toolchain"
+)
 :: Synchronize package databases and upgrade the core system
 C:\%MSYS2_DIR%\usr\bin\pacman --noconfirm --noprogressbar -Sy --needed filesystem mintty bash pacman pacman-mirrors msys2-runtime msys2-runtime-devel
 :: Install and update necessary packages
