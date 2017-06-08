@@ -22,16 +22,16 @@ PATH C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%
 set CHERE_INVOKING=yes
 bash -lc "if [ \"x$(checkupdates)\" != x ]; then exit 1; fi"
 if ERRORLEVEL 1 (
-	:: Update found
-	:: Remove unused toolchain to reduce the time for updating
+	@rem Update found
+	@rem Remove unused toolchain to reduce the time for updating
 	if "%MSYSTEM%"=="MINGW64" (
 		bash -lc "pacman --noconfirm -Rs mingw-w64-i686-toolchain"
 	) else if "%MSYSTEM%"=="MINGW32" (
 		bash -lc "pacman --noconfirm -Rs mingw-w64-x86_64-toolchain"
 	)
-	:: Synchronize package databases and upgrade the core system
+	@rem Synchronize package databases and upgrade the core system
 	C:\%MSYS2_DIR%\usr\bin\pacman --noconfirm --noprogressbar -Syu
-	:: Run again to update the rest of packages
+	@rem Run again to update the rest of packages
 	C:\%MSYS2_DIR%\usr\bin\pacman --noconfirm --noprogressbar -Su
 )
 :: Install necessary packages
